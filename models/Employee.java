@@ -6,32 +6,29 @@ public class Employee {
      private String lName;
      private String pass;
      private String dept;
-     private String email;
+     private String generateEmailAddress;
      private int defaultPasswordLength=10;
-     private String alternateEmail;
      private String companySuffix="company.com";
 
   
      public Employee(String fName,String lName) {
          this.fName = fName;
          this.lName = lName;
- 
-
          
          this.dept=setDepartment();
 
-         this.pass=randomPassword(defaultPasswordLength);
+         this.pass=generatePassword(defaultPasswordLength);
          
-         email=fName.toLowerCase()+"."+lName.toLowerCase()+"@" +dept+"."+companySuffix;
+         generateEmailAddress=fName.toLowerCase()+"."+lName.toLowerCase()+"@" +dept+"."+companySuffix;
          System.out.println("Dear, "+fName+" your generated credentials are as follows\n");
-         System.out.println("Email-->"+this.email+"\n");
+         System.out.println("Email-->"+this.generateEmailAddress+"\n");
          System.out.println("Password -->"+this.pass+"\n\n");
 
      }
 
      private String setDepartment() {
          System.out.print("Please enter the DEPARTMENT from the following :\n1. Technical \n2. Admin\n3. Human Resource \n4. Legal \nEnter the department code: ");
-         Scanner in=new Scanner(System.in);
+         Scanner in =new Scanner(System.in);
          int depchoice=in.nextInt();
          if(depchoice==1) {
              return "technical";
@@ -50,8 +47,8 @@ public class Employee {
          }
      }
      
-     private String randomPassword(int length) {
-         String passwordSet= "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%";
+     private String generatePassword(int length) {
+         String passwordSet= "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*)(abcdefghijklmnopqrstuvwxyz";
          char[] password=new char[length];
          for(int i=0;i<length;i++) {
              int rand=(int) (Math.random()*passwordSet.length());
@@ -59,22 +56,15 @@ public class Employee {
          }
          return new String(password);
      }
-
-  
-     public void setAlternateEmail(String altEmail) {
-         this.alternateEmail=altEmail;
-     }
-
      
      public void changePassword(String password) {
          this.pass=password;
      }
 
-     public String getAlternateEmail() { return alternateEmail; }
      public String getPassword() { return pass; }
 
-     public String showinfo() {
+     public String showCredentials() {
          return "DISPLAY NAME: "+fName+" "+lName+
-                 "\nCOMPANY EMAIL: "+email+"\n";
+                 "\nCOMPANY Email: "+generateEmailAddress+"\n";
      }
 }
